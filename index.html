@@ -1,0 +1,98 @@
+<html>
+<style type="text/css">
+	.row {
+		width: 600px;
+		position: relative;
+		margin: 0 auto;
+	}
+	.box {
+		width: 300px;
+		height: 300px;
+		float: left;
+		cursor: pointer;
+	}
+	#true {
+		background: lightgreen;
+	}
+	#false {
+		background: salmon;
+	}
+
+	.hide {
+		display: none;
+	}
+</style>
+
+<head>
+	<title></title>
+</head>
+<body>
+
+
+<div class="row">
+	<div id="true" class="box"></div>
+	<div id="false" class="box"></div>
+</div>
+<div id="scoreDispley"></div>
+
+	<script type="text/javascript">
+
+var trueClick = document.getElementById("true"),
+	falseClick = document.getElementById("false"),
+	scoreDispley = document.getElementById("scoreDispley"),
+	questions = [	
+					{
+						question:'brick',
+						answer: false
+					},
+					{
+						question: 'tree',
+						answer: true
+					},
+					{
+						question:'ivy',
+						answer: true
+					}
+					];
+var score = 0;
+
+
+function loop(num){
+	console.log(num);
+
+	if(num < 0) {
+		return -1;
+	}
+	else if (num == 0) {
+		//console.log('we have a winner!');
+		//return 1;
+		gameOver();
+	}
+	else {
+	document.getElementById('scoreDispley').innerHTML = score;
+	score++;
+
+		processAnswer(num);
+	}
+
+}
+
+function processAnswer(num) {
+	trueClick.addEventListener("click", function(){
+		
+		return(loop(num - 1));	
+	} , false);
+}
+
+var result = loop(questions.length);
+
+
+function gameOver() {
+	console.log('game over');	
+
+}
+	</script>
+
+
+</body>
+</html>
