@@ -1,50 +1,6 @@
 <html>
-<style type="text/css">
-	.row {
-		width: 600px;
-		position: relative;
-		margin: 0 auto;
-		text-align: center;
-	}
-	.box {
-		width: 300px;
-		height: 300px;
-		float: left;
-		cursor: pointer;
-	}
-	#true {
-		background: lightgreen;
-	}
-	#false {
-		background: salmon;
-	}
 
-	.hide {
-		display: none;
-	}
-
-	.button {
-		background: transparent;;
-		padding: 15px 20px;
-		width: 200px;
-		border: 2px solid black;
-		clear: both;
-		margin: 15px auto 0;
-	}
-
-	#modal {
-		position: fixed;
-		top: 0;
-		left: 0;
-		height: 100%;
-		width: 100%;
-		background-color: rgba(0,0,0,0.8);
-		display: none;
-	}
-	#modal.is-visible {
-		display: block;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="css/style.css">
 
 <head>
 	<title></title>
@@ -56,112 +12,15 @@
 	<h3 id="question"></h3>
 	<div id="true" class="box"></div>
 	<div id="false" class="box"></div>
-	<div id="scoreDispley" class="score"></div>
+	<p id="scoreDispley" class="score"></p>
 	<button id="newGame" class="button">New Game</button>
 </div>
 
-<div id="modal"></div>
-	<script type="text/javascript">
+<div id="modal"><p id="congrats"></p></div>
+<div id="modalCorrect"><h3>Correct!</h3></div>
+<div id="modalWrong"><h3>Wrong!</h3></div>
 
-var	question = document.getElementById("question"),
-	trueClick = document.getElementById("true"),
-	falseClick = document.getElementById("false"),
-	scoreDispley = document.getElementById("scoreDispley"),
-	modal = document.getElementById("modal"),
-	newGame = document.getElementById("newGame");
-	score = 0,
-	questionsArray = [	
-					{
-						question:'Is brick alive?',
-						answer: false
-					},
-					{
-						question: 'Is a tree alive?',
-						answer: true
-					},
-					{
-						question:'Is ivy alive?',
-						answer: true
-					},
-					{
-						question:'Is a TV alive?',
-						answer: false
-					}
-					];
-
-var	questionCount = questionsArray.length - 1;
-newGame.addEventListener("click", setStage, false);
-trueClick.addEventListener("click", function(){trueScore(true)}, false);
-falseClick.addEventListener("click", function(){trueScore(false)}, false);
-
-
-var currentQuestion = 0;
-function setStage(){
-	currentQuestion = 0;
-	score = 0;
-	scoreDispley.innerHTML = score;	
-	questionCount = questionsArray.length -1;
-	question.innerHTML = questionsArray[currentQuestion].question;
-
-	console.log('This quiz has ' + (questionCount + 1)  + ' questions.');
-	console.log('Your score is ' + score);
-}
-setStage();
-
-
-function loop(num){
-	if(num < 0) {
-		return -1;
-	}
-	else if (num < 1) {
-		gameOver();
-	}
-	else {
-		processAnswer(num);
-	}
-}
-
-
-function processAnswer(num) {
-	if(num < questionsArray.length) {
-		question.innerHTML = questionsArray[num].question;
-		questionCount--;
-		console.log(num);		
-	}
-
-	console.log('count: ' + questionCount);
-	/*
-	trueClick.addEventListener("click", function(){
-		return(loop(num - 1));	
-	} , false);
-	*/
-}
-
-
-function trueScore(answer) {
-	if(answer == questionsArray[questionCount].answer) {
-		score++;
-	}
-	currentQuestion++;
-	scoreDispley.innerHTML = score;
-	processAnswer(currentQuestion);
-
-}
-
-
-function gameOver() {
-	console.log('game over, youre score is: ' + score);		
-	trueClick.removeEventListener("click", trueScore, false);
-
-	modal.className = 'is-visible';
-	modal.addEventListener("click", function(){
-		modal.removeAttribute('class')
-		setStage();
-	}, false);
-}
-
-	</script>
-
+<script type="text/javascript" src="js/script.js"></script>
 
 </body>
 </html>
