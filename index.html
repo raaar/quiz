@@ -4,6 +4,7 @@
 		width: 600px;
 		position: relative;
 		margin: 0 auto;
+		text-align: center;
 	}
 	.box {
 		width: 300px;
@@ -21,6 +22,28 @@
 	.hide {
 		display: none;
 	}
+
+	.button {
+		background: transparent;;
+		padding: 15px 20px;
+		width: 200px;
+		border: 2px solid black;
+		clear: both;
+		margin: 15px auto 0;
+	}
+
+	#modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background-color: rgba(0,0,0,0.8);
+		display: none;
+	}
+	#modal.is-visible {
+		display: block;
+	}
 </style>
 
 <head>
@@ -30,67 +53,113 @@
 
 
 <div class="row">
+	<h3 id="question"></h3>
 	<div id="true" class="box"></div>
 	<div id="false" class="box"></div>
+	<div id="scoreDispley" class="score"></div>
+	<button id="newGame" class="button">New Game</button>
 </div>
-<div id="scoreDispley"></div>
 
+<div id="modal"></div>
 	<script type="text/javascript">
 
-var trueClick = document.getElementById("true"),
+var	question = document.getElementById("question"),
+	trueClick = document.getElementById("true"),
 	falseClick = document.getElementById("false"),
 	scoreDispley = document.getElementById("scoreDispley"),
-	questions = [	
+	modal = document.getElementById("modal"),
+	newGame = document.getElementById("newGame");
+	score = 0,
+	questionsArray = [	
 					{
-						question:'brick',
+						question:'Is brick alive?',
 						answer: false
 					},
 					{
-						question: 'tree',
+						question: 'Is a tree alive?',
 						answer: true
 					},
 					{
-						question:'ivy',
+						question:'Is ivy alive?',
 						answer: true
+					},
+					{
+						question:'Is a TV alive?',
+						answer: false
 					}
 					];
-var score = 0;
+
+var	questionCount = questionsArray.length - 1;
+newGame.addEventListener("click", setStage, false);
+trueClick.addEventListener("click", function(){trueScore(true)}, false);
+falseClick.addEventListener("click", function(){trueScore(false)}, false);
+
+
+var currentQuestion = 0;
+function setStage(){
+	currentQuestion = 0;
+	score = 0;
+	scoreDispley.innerHTML = score;	
+	questionCount = questionsArray.length -1;
+	question.innerHTML = questionsArray[currentQuestion].question;
+
+	console.log('This quiz has ' + (questionCount + 1)  + ' questions.');
+	console.log('Your score is ' + score);
+}
+setStage();
 
 
 function loop(num){
-	console.log(num);
-
 	if(num < 0) {
 		return -1;
 	}
-	else if (num == 0) {
-		//console.log('we have a winner!');
-		//return 1;
+	else if (num < 1) {
 		gameOver();
 	}
 	else {
-	document.getElementById('scoreDispley').innerHTML = score;
-	score++;
-
 		processAnswer(num);
 	}
-
 }
+
 
 function processAnswer(num) {
+	if(num < questionsArray.length) {
+		question.innerHTML = questionsArray[num].question;
+		questionCount--;
+		console.log(num);		
+	}
+
+	console.log('count: ' + questionCount);
+	/*
 	trueClick.addEventListener("click", function(){
-		
 		return(loop(num - 1));	
 	} , false);
+	*/
 }
 
-var result = loop(questions.length);
+
+function trueScore(answer) {
+	if(answer == questionsArray[questionCount].answer) {
+		score++;
+	}
+	currentQuestion++;
+	scoreDispley.innerHTML = score;
+	processAnswer(currentQuestion);
+
+}
 
 
 function gameOver() {
-	console.log('game over');	
+	console.log('game over, youre score is: ' + score);		
+	trueClick.removeEventListener("click", trueScore, false);
 
+	modal.className = 'is-visible';
+	modal.addEventListener("click", function(){
+		modal.removeAttribute('class')
+		setStage();
+	}, false);
 }
+
 	</script>
 
 
