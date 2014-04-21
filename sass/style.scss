@@ -15,6 +15,14 @@ $sans: helvetica, arial, sans-serif;
 	h3 {
 		font-size: 2rem;
 		margin: 0rem 0 1rem;
+		font-weight: 700;
+		text-align: left;
+		small {
+			font-size: 40%;
+			color: lightgrey;
+			font-weight: 100;
+			margin-left: 15px;
+		}
 	}
 	h1,h2,h3,p {
 		font-family: helvetica, arial, sans-serif;
@@ -31,45 +39,66 @@ $sans: helvetica, arial, sans-serif;
 		width: 600px;
 		position: relative;
 		margin: -20px auto 0;
-		text-align: center;
 	}
 	.box {
-		width: 300px;
-		height: 300px;
+		width: 280px;
+		height: 280px;
 		float: left;
 		cursor: pointer;
+		margin-right: 15px;
 	}
+	
 	#true {
 		background: lightgreen;
+		@include transition(0.2s all);
+		&:hover {
+			background: green;
+		}
 	}
 	#false {
 		background: salmon;
+		@include transition(0.2s all);
+		&:hover {
+			background: red;
+		}
 	}
 
 	.hide {
 		display: none;
 	}
 
-	.button {
-		cursor: pointer;
-		background: transparent;;
-		padding: 15px 20px 14px;
-		width: 200px;
-		border: 1px solid black;
-		clear: both;
-		margin: 15px auto 0;
-		//text-transform: uppercase;
-		font-size: 1rem;
-		font-family: $sans;
-		@include transition(0.3s all);
-		@include border-radius(3px);
+.button {
+	cursor: pointer;
+	background: transparent;;
+	padding: 15px 20px 14px;
+	width: 200px;
+	border: 1px solid black;
+	clear: both;
+	margin: 15px auto 0;
+	font-size: 1rem;
+	font-family: $sans;
+	@include transition(0.3s all);
 		&:hover {
-			background-color: purple;
-			border-color: purple;
+			background-color: black;
+			border-color: black;
 			color: white;
 		}
-	}
+}
 
+.score {
+	margin-top: 15px;
+	margin-right: 15px;
+	padding: 10px;
+	background: black;
+	color: white;
+	width: 30px;
+	height: 30px;
+	display: block;
+	overflow: hidden;
+	text-align: center;
+	line-height: 30px;
+	float: left;
+}
 
 .modal {
 	position: fixed;
@@ -110,3 +139,26 @@ $sans: helvetica, arial, sans-serif;
 		color: white;
 	}
 }
+
+
+/*
+
+					 __________
+					/\         \
+				   /  \			\
+				  /    \         \
+				 /      \         \
+				/        \         \
+	  		   /          \         \
+			  /     /\     \         \
+			 /     /  \     \_________\
+			/ 	   \  /     /         /
+           /	    \/     /
+          /               /_________/
+               /\        /
+          
+*/
+
+
+
+
